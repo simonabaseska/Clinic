@@ -1,0 +1,66 @@
+﻿@model Clinic.ViewModels.TermPatientEditViewModel
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Terms</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Term.TermID" />
+            <div class="form-group">
+                <label asp-for="Term.Category" class="control-label"></label>
+                <input asp-for="Term.Category" class="form-control" />
+                <span asp-validation-for="Term.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Term.Date" class="control-label"></label>
+                <input asp-for="Term.Date" class="form-control" />
+                <span asp-validation-for="Term.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Term.Priority" /> @Html.DisplayNameFor(model => model.Term.Priority)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Term.DoctorId" class="control-label"></label>
+                <select asp-for="Term.DoctorId" class="form-control" asp-items="ViewBag.DoctorId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="Term.DoctorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Patients</label>
+                <select asp-for="SelectedPatients" class="form-control js-example-basic-multiple"
+                        asp-items="Model.PatientList"> </select>
+                <span asp-validation-for="SelectedPatients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+$(document).ready(function () {
+$("#SelectedPatients").select2();
+});
+    </script>
+
+}
